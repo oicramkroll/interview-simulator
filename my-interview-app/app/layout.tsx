@@ -24,7 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="manifest" href="/manifest.json" />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
