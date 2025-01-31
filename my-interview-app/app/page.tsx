@@ -229,6 +229,7 @@ export default function Home() {
       </div>
 
       <div className="mb-3">
+        <label>Numero de perguntas</label>
         <input
           type="number"
           className="form-control"
