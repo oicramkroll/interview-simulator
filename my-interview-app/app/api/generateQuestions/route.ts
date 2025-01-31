@@ -48,6 +48,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ questions }, { status: 200 });
   } catch (error) {
     console.error("Erro ao gerar perguntas:", error);
-    return NextResponse.json({ error: "Erro ao gerar perguntas: " + error.message }, { status: 500 });
+    return NextResponse.json({ error: "Erro ao gerar perguntas: " + error }, { status: 500 });
   }
 }
