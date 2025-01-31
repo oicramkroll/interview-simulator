@@ -3,7 +3,25 @@ import { useState } from "react";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const QuestionCard = ({ question, index, answer, feedback, isRecording, isChecking, onAnswerChange, onStartRecording, onSpeakQuestion, onCheckAnswer }) => (
+
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+
+interface QuestionCardProps {
+  question: string;
+  index: number;
+  answer: string;
+  feedback: string;
+  isRecording: boolean;
+  isChecking: boolean;
+  onAnswerChange: (index: number, value: string) => void;
+  onStartRecording: (index: number) => void;
+  onSpeakQuestion: (text: string) => void;
+  onCheckAnswer: (index: number) => void;
+}
+
+const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, answer, feedback, isRecording, isChecking, onAnswerChange, onStartRecording, onSpeakQuestion, onCheckAnswer }) => (
   <div key={index} className="mb-3">
     <div className="d-flex align-items-center">
       <p className="me-2">{index + 1}. {question}</p>
