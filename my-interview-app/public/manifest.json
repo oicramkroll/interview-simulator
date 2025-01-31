@@ -4,7 +4,7 @@
     "description": "Simulação de entrevistas  em ingles",
     "theme_color": "#eeeeee",
     "background_color": "#ffffff",
-    "display": "browser",
+    "display": "fullscreen",
     "orientation": "portrait",
     "scope": "/",
     "start_url": "/",

@@ -1,11 +1,18 @@
-// global.d.ts
-
 /// <reference lib="speechapi" />
 declare global {
-    interface Window {
-      SpeechRecognition: any;
-      webkitSpeechRecognition: any;
-    }
+  interface WindowEventMap {
+    beforeinstallprompt: BeforeInstallPromptEvent;
   }
-  
-  export {};
+
+  interface BeforeInstallPromptEvent extends Event {
+    prompt: () => void;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  }
+
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+
+export {};

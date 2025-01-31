@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
+import InstallButton from './components/Instalation';
+
 
 
 interface SpeechRecognitionEvent extends Event {
@@ -215,7 +217,7 @@ export default function Home() {
       </Head>
 
       <h1 className="mb-4">Simulador de Entrevista em Inglês</h1>
-
+      <InstallButton /> {/* Botão de instalação */}
       <div className="mb-3">
         <input
           type="text"
