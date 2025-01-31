@@ -21,9 +21,9 @@ interface QuestionCardProps {
   onStartRecording: (index: number) => void;
   onSpeakQuestion: (text: string) => void;
   onCheckAnswer: (index: number) => void;
+  onClearAnswer: (index: number) => void; // Adicione esta linha
 }
-
-const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, answer, feedback, isRecording, isChecking, onAnswerChange, onStartRecording, onSpeakQuestion, onCheckAnswer }) => (
+const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, answer, feedback, isRecording, isChecking, onAnswerChange, onStartRecording, onSpeakQuestion, onCheckAnswer, onClearAnswer }) => (
   <div key={index} className="mb-3">
     <div className="d-flex align-items-center">
       <p className="me-2">{index + 1}. {question}</p>
@@ -37,60 +37,74 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, answer, fe
       </button>
     </div>
 
-    <input
-      type="text"
+    <textarea
       className="form-control"
       placeholder="Digite sua resposta"
       value={answer}
       onChange={(e) => onAnswerChange(index, e.target.value)}
+      rows={3} // Ajuste o número de linhas conforme necessário
     />
 
-    <button
-      className={`btn btn-sm ${isRecording ? "btn-danger" : "btn-info"} mt-2 text-white`}
-      onClick={() => onStartRecording(index)}
-      disabled={isRecording}
-      aria-label={isRecording ? "Gravando" : "Gravar Resposta"}
-      title="Falar" 
-    >
-      {isRecording ? (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
-          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-        </svg>
-      ) : (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-          <path d="M12 19v4" />
-          <path d="M8 23h8" />
-        </svg>
-      )}
-      &nbsp;&nbsp;&nbsp;{isRecording ? "Gravando..." : "Falar"}
-    </button>
+    <div className="d-flex align-items-center mt-2">
 
-    <button
-      className="btn btn-sm btn-success mt-2 ms-2"
-      onClick={() => onCheckAnswer(index)}
-      disabled={isChecking}
-      title="Verificar" 
-    >
-      {isChecking ? (
-        <>
+      <button
+        className={`btn btn-sm ${isRecording ? "btn-danger" : "btn-info"} text-white `}
+        onClick={() => onStartRecording(index)}
+        disabled={isRecording}
+        aria-label={isRecording ? "Gravando" : "Gravar Resposta"}
+        title="Falar"
+      >
+        {isRecording ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
           </svg>
-          &nbsp;&nbsp;&nbsp;Verificando...
-        </>
-        
-      ) : (
-        <>
+        ) : (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <path d="M22 4L12 14.01l-3-3" />
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+            <path d="M12 19v4" />
+            <path d="M8 23h8" />
           </svg>
-          &nbsp;&nbsp;&nbsp;Verificar
-        </>
-      )}
-    </button>
+        )}
+        &nbsp;&nbsp;&nbsp;{isRecording ? "Gravando..." : "Falar"}
+      </button>
+
+      <button
+        className="btn btn-sm btn-success ms-2"
+        onClick={() => onCheckAnswer(index)}
+        disabled={isChecking}
+        title="Verificar"
+      >
+        {isChecking ? (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+            </svg>
+            &nbsp;&nbsp;&nbsp;Verificando...
+          </>
+        ) : (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <path d="M22 4L12 14.01l-3-3" />
+            </svg>
+            &nbsp;&nbsp;&nbsp;Verificar
+          </>
+        )}
+      </button>
+
+      <button
+        className="btn btn-sm btn-warning  ms-2 "
+        onClick={() => onClearAnswer(index)}
+        title="Limpar Resposta"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 6h18" />
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+        </svg>
+        &nbsp;&nbsp;&nbsp;Limpar
+      </button>
+    </div>
 
     {feedback && <p className="mt-2"><strong>Feedback:</strong> {feedback}</p>}
   </div>
@@ -98,7 +112,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, index, answer, fe
 
 export default function Home() {
   const [topic, setTopic] = useState("");
-  const [numQuestions, setNumQuestions] = useState(5);
+  const [numQuestions, setNumQuestions] = useState<number | "">("");
   const [questions, setQuestions] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [feedback, setFeedback] = useState<string[]>([]);
@@ -108,7 +122,8 @@ export default function Home() {
 
   const generateQuestions = async () => {
     if (!topic) return alert("Informe um tema para a entrevista!");
-    if (numQuestions < 1 || numQuestions > 20) return alert("O número de perguntas deve estar entre 1 e 20.");
+    const num = Number(numQuestions);
+    if (isNaN(num) || num < 1 || num > 20) return alert("O número de perguntas deve estar entre 1 e 20.");
     setIsLoading(true);
 
     try {
@@ -159,6 +174,12 @@ export default function Home() {
       newIsChecking[index] = false; // Desativa o estado de carregamento
       setIsChecking(newIsChecking);
     }
+  };
+
+  const clearAnswer = (index: number) => {
+    const newAnswers = [...answers];
+    newAnswers[index] = "";
+    setAnswers(newAnswers);
   };
 
   const speakQuestion = (text: string) => {
@@ -229,19 +250,27 @@ export default function Home() {
       </div>
 
       <div className="mb-3">
-        <label>Numero de perguntas</label>
-        <input
-          type="number"
-          className="form-control"
-          placeholder="Número de perguntas"
-          value={numQuestions}
-          onChange={(e) => setNumQuestions(Number(e.target.value))}
-        />
+        <div className="mb-3">
+          <select
+            className="form-control"
+            value={numQuestions === "" ? "" : numQuestions}
+            onChange={(e) => setNumQuestions(e.target.value === "" ? "" : Number(e.target.value))}
+          >
+            <option value="" disabled>
+              Selecione a quantidade de perguntas
+            </option>
+            {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <button 
-        className="btn btn-primary mb-3" 
-        onClick={generateQuestions} 
+      <button
+        className="btn btn-primary mb-3"
+        onClick={generateQuestions}
         disabled={isLoading}
         title="Gerar"
       >
@@ -271,11 +300,12 @@ export default function Home() {
               answer={answers[i]}
               feedback={feedback[i]}
               isRecording={isRecording[i]}
-              isChecking={isChecking[i]} // Passa o estado de carregamento
+              isChecking={isChecking[i]}
               onAnswerChange={handleAnswerChange}
               onStartRecording={startRecording}
               onSpeakQuestion={speakQuestion}
               onCheckAnswer={checkAnswer}
+              onClearAnswer={clearAnswer} // Adicione esta linha
             />
           ))}
         </div>
