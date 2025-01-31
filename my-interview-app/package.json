@@ -1,0 +1,28 @@
+{
+  "name": "my-interview-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
+    "next": "15.1.6",
+    "next-pwa": "^5.6.0",
+    "openai": "^4.81.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "speech-synthesis": "^0.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}
